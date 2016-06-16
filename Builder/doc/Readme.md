@@ -12,28 +12,25 @@ There are a few handy source control features baked into the tool, like triggeri
 
 **This Application requires .NET Framework 4.6.1 to run.** You can download it [here](https://www.microsoft.com/en-us/download/details.aspx?id=49981) for Windows 7 and later.
 
-Main Window
------------
+Manual
+------
 
-The main window tries to resemble a VisualStudio Solution Explorer as much as possible.
+### Setting up a new build environment
 
-![Image of main window](main.png)
+-   Right Click on the Root Node -&gt; Add -&gt; New Source Directory
+-   Specify the Source Directory path, **please include a trailing backslash here** and the stream name, for example platform02-3 or WSG02-5
+-   Press OK. The new directory should appear in the Tree. Right Click and select "Bootstrap"
+-   This will run the bentleybootstrap script on the directory. It will show a primitive progress bar, and will warn you, if the source directory is not empty.
+-   After the bootstrap finished successfully, right click the tree node -&gt; Add -&gt; New Configuration
+-   Specify an output directory (trailing backslash) and the name of your build strategy (without the file extension). Change the "Mode" to debug, if intended.
+-   Press OK. There should be a new Tree node. Double Click it to open your first bb shell. Input "bb p" to run your initial pull of all repositories.
 
-It shows a hierarchical tree of the environments of the current machine, the layout is as follows:
+Known issues
+------------
 
-    Environments on <Machine>
-    +---<source dir>                 <Stream name>
-        +---<configuration>
-        |   \---<Part>
-        \---<configuration>
-            +---<Part>
-            \---<Part>
+-   It appears on some machines Builder will fail to start shells or builds with administrator permissions. These will then run into an error when they try to create symbolic links. This never happened on my own machine so far.
 
-A **source dir** is a folder on the machine which contains a bootstrapped stream of source code.
-
-Below you can have multiple **configurations** which define an output folder (multiple might point to the same), a BuildStrategy and a few additional flags. These are the nodes where you can trigger a TMR, Clean the out dir etc.
-
-Below there are currently only parts. WIP.
+-   There is a sporadic behavior where build output messages will hang for a few minutes and be flushed out a while later in an instant. During two months of daily usage this only happened twice on my machine. I did not have a chance to debug into this yet.
 
 FAQ
 ---
